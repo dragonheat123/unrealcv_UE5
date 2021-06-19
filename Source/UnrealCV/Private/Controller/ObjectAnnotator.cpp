@@ -47,7 +47,8 @@ void FObjectAnnotator::SetAnnotationColor(AActor* Actor, const FColor& Annotatio
 		return;
 	}
 	// CHECK: Add the annotation color regardless successful or not
-	TArray<UActorComponent*> AnnotationComponents = Actor->GetComponentsByClass(UAnnotationComponent::StaticClass());
+    TArray<UActorComponent*> AnnotationComponents;
+    Actor->GetComponents(UAnnotationComponent::StaticClass(),AnnotationComponents);
 	if (AnnotationComponents.Num() == 0)
 	{
 		CreateAnnotationComponent(Actor, AnnotationColor);
@@ -80,8 +81,10 @@ void FObjectAnnotator::GetAnnotationColor(AActor* Actor, FColor& AnnotationColor
 	// TODO: Remove the first only leave the second method
 
 	// Check its direct children, do not recursive, otherwise it is very easy to trigger the warning.
-	TArray<UActorComponent*> AnnotationComponents = Actor->GetComponentsByClass(UAnnotationComponent::StaticClass());
-	TArray<UActorComponent*> MeshComponents = Actor->GetComponentsByClass(UMeshComponent::StaticClass());
+    TArray<UActorComponent*> AnnotationComponents;
+    Actor->GetComponents(UAnnotationComponent::StaticClass(),AnnotationComponents);
+    TArray<UActorComponent*> MeshComponents;
+    Actor->GetComponents(UMeshComponent::StaticClass(),MeshComponents);
 	// Note: Strange that the MeshComponents.Num() is twice the number of AnnotationComponents.Num()
 	if (AnnotationComponents.Num() == 0) return;
 	if (AnnotationComponents.Num() != MeshComponents.Num())
@@ -127,7 +130,8 @@ void FObjectAnnotator::CreateAnnotationComponent(AActor* Actor, const FColor& An
 		UE_LOG(LogUnrealCV, Warning, TEXT("Invalid actor in CreateAnnotationComponent"));
 		return;
 	}
-	TArray<UActorComponent*> AnnotationComponents = Actor->GetComponentsByClass(UAnnotationComponent::StaticClass());
+    TArray<UActorComponent*> AnnotationComponents;
+    Actor->GetComponents(UAnnotationComponent::StaticClass(),AnnotationComponents);
 	if (AnnotationComponents.Num() != 0)
 	{
 		UE_LOG(LogUnrealCV, Log, TEXT("Skip annotated actor %d"), *Actor->GetName());
@@ -136,7 +140,8 @@ void FObjectAnnotator::CreateAnnotationComponent(AActor* Actor, const FColor& An
 
 	UE_LOG(LogTemp, Log, TEXT("Annotate actor %s with color %s"), *Actor->GetName(), *AnnotationColor.ToString());
 	// UE_LOG(LogTemp, Log, TEXT("Annotate actor %s with color %s"), *Actor->GetName(), *AnnotationColor.ToString());
-	TArray<UActorComponent*> MeshComponents = Actor->GetComponentsByClass(UMeshComponent::StaticClass());
+    TArray<UActorComponent*> MeshComponents;
+    Actor->GetComponents(UMeshComponent::StaticClass(),MeshComponents);
 	for (UActorComponent* Component : MeshComponents)
 	{
 		UMeshComponent* MeshComponent = Cast<UMeshComponent>(Component);
@@ -158,7 +163,8 @@ void FObjectAnnotator::UpdateAnnotationComponent(AActor* Actor, const FColor& An
 		UE_LOG(LogUnrealCV, Warning, TEXT("Invalid actor in CreateAnnotationComponent"));
 		return;
 	}
-	TArray<UActorComponent*> AnnotationComponents = Actor->GetComponentsByClass(UAnnotationComponent::StaticClass());
+    TArray<UActorComponent*> AnnotationComponents;
+    Actor->GetComponents(UAnnotationComponent::StaticClass(),AnnotationComponents);
 	for (UActorComponent* Component : AnnotationComponents)
 	{
 		UAnnotationComponent* AnnotationComponent = Cast<UAnnotationComponent>(Component);

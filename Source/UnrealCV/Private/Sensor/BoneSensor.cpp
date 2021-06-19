@@ -21,7 +21,7 @@ TArray<FBoneInfo> FBoneSensor::GetBonesInfo()
 	const TArray<FBoneIndexType>& RequiredBones = Component->RequiredBones;
 	USkeletalMesh* SkeletalMesh = Component->SkeletalMesh;
 	const FTransformArrayA2& ComponentSpaceTransforms = Component->GetComponentSpaceTransforms();
-	const FTransformArrayA2& BoneSpaceTransforms = Component->GetBoneSpaceTransforms();
+    const FTransformArrayA2& BoneSpaceTransforms = Component->GetCachedComponentSpaceTransforms();
 	const FTransform& ComponentToWorld = Component->GetComponentToWorld();
 
 	bool bIncludeAll = false;

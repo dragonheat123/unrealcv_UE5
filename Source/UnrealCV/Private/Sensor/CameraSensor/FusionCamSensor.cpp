@@ -186,7 +186,8 @@ TArray<UFusionCamSensor*> UFusionCamSensor::GetComponents(AActor* Actor)
 		return Components;
 	}
 
-	TArray<UActorComponent*> ChildComponents = Actor->GetComponentsByClass(UFusionCamSensor::StaticClass());
+    TArray<UActorComponent*> ChildComponents;
+    Actor->GetComponents(UFusionCamSensor::StaticClass(),ChildComponents);
 	for (UActorComponent* Component : ChildComponents)
 	{
 		Components.Add(Cast<UFusionCamSensor>(Component));

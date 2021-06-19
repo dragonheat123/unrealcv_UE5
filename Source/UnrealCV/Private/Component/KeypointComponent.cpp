@@ -41,8 +41,8 @@ void UKeypointComponent::MatchNearestVertex()
 	{
 		return;
 	}
-	TArray<UActorComponent*> MeshComponents = //OwnerActor->GetComponentsByClass(UMeshComponent::StaticClass());
-        OwnerActor->AActor::GetComponentsByClass(UMeshComponent::StaticClass());
+    TArray<UActorComponent*> MeshComponents; //OwnerActor->GetComponentsByClass(UMeshComponent::StaticClass());
+    OwnerActor->GetComponents(UMeshComponent::StaticClass(),MeshComponents);
 	MatchedVertexs.Empty();
         
 	

@@ -16,7 +16,8 @@ TArray<UFusionCamSensor*> USensorBPLib::GetFusionSensorList()
 
 	if (IsValid(Pawn))
 	{
-		TArray<UActorComponent*> PawnComponents = FUnrealcvServer::Get().GetPawn()->GetComponents(UFusionCamSensor::StaticClass());
+        TArray<UActorComponent*> PawnComponents;
+        Pawn->GetComponents(UFusionCamSensor::StaticClass(),PawnComponents);
 		// Make sure the one attached to the pawn is the first one.
 		for (UActorComponent* FusionCamSensor : PawnComponents)
 		{

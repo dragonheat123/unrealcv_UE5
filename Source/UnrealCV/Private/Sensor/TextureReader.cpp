@@ -50,8 +50,7 @@ bool FastReadTexture2DAsync(FTexture2DRHIRef Texture2D, TFunction<void(FColor*, 
 			UE_LOG(LogUnrealCV, Warning, TEXT("Input texture2D is nullptr"));
 			return;
 		}
-        
-        FRHIResourceCreateInfo CreateInfo();
+        FRHIResourceCreateInfo CreateInfo(TEXT("CreateInfo"));
 		FTexture2DRHIRef ReadbackTexture = RHICreateTexture2D(
 			SrcTexture->GetSizeX(), SrcTexture->GetSizeY(),
 			EPixelFormat::PF_B8G8R8A8,
@@ -86,14 +85,13 @@ bool FastReadTexture2DAsync(FTexture2DRHIRef Texture2D, TFunction<void(FColor*, 
 		Callback(ColorBuffer, Width, Height);
 		RHICmdList.UnmapStagingSurface(ReadbackTexture);
 	};
-
-	ENQUEUE_UNIQUE_RENDER_COMMAND_TWOPARAMETER(
-		FastReadBuffer,
-		TFunction<void(FRHICommandListImmediate&, FTexture2DRHIRef)>, InRenderCommand, RenderCommand,
-		FTexture2DRHIRef, InTexture2D, Texture2D,
-		{
-			InRenderCommand(RHICmdList, InTexture2D);
-		});
+    ENQUEUE_RENDER_COMMAND(FastReadBuffer)(
+    [RenderCommand,Texture2D]
+    (FRHICommandListImmediate& RHICmdList)
+    {
+        RenderCommand(RHICmdList,Texture2D);
+    }
+    );
 	return true;
 }
 
