@@ -1,3 +1,5 @@
+### Updated to compile in UE5.0A on MACOS Big Sur
+
 # UnrealCV
 
 [![Join the chat at https://gitter.im/unrealcv/unrealcv](https://badges.gitter.im/unrealcv/unrealcv.svg)](https://gitter.im/unrealcv/unrealcv?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
