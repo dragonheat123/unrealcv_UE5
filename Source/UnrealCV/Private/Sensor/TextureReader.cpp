@@ -50,7 +50,8 @@ bool FastReadTexture2DAsync(FTexture2DRHIRef Texture2D, TFunction<void(FColor*, 
 			UE_LOG(LogUnrealCV, Warning, TEXT("Input texture2D is nullptr"));
 			return;
 		}
-		FRHIResourceCreateInfo CreateInfo;
+        
+        FRHIResourceCreateInfo CreateInfo();
 		FTexture2DRHIRef ReadbackTexture = RHICreateTexture2D(
 			SrcTexture->GetSizeX(), SrcTexture->GetSizeY(),
 			EPixelFormat::PF_B8G8R8A8,

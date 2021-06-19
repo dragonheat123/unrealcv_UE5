@@ -257,9 +257,6 @@ TArray<FVector> UVisionBPLib::SkinnedMeshComponentGetVertexArray(USkinnedMeshCom
 	TArray<FVector> VertexArray;
 	if (!IsValid(Component)) return VertexArray;
 
-#if ENGINE_MINOR_VERSION < 19
-	Component->ComputeSkinnedPositions(VertexArray);
-#else
 	// Ref: https://github.com/EpicGames/UnrealEngine/blob/4.19/Engine/Source/Runtime/Engine/Private/PhysicsEngine/PhysAnim.cpp#L671
 	if (Component->MeshObject == nullptr)
 	{
@@ -271,7 +268,6 @@ TArray<FVector> UVisionBPLib::SkinnedMeshComponentGetVertexArray(USkinnedMeshCom
 	const FSkeletalMeshLODRenderData& LODData = Component->MeshObject->GetSkeletalMeshRenderData().LODRenderData[0];
 	Component->CacheRefToLocalMatrices(RefToLocals);
 	USkinnedMeshComponent::ComputeSkinnedPositions(Component, VertexArray, RefToLocals, LODData, SkinWeightBuffer);
-#endif
 
 	return VertexArray;
 	// SkinnedMeshComponent.cpp::ComputeSkinnedPositions
@@ -299,20 +295,20 @@ TArray<FVector> UVisionBPLib::StaticMeshComponentGetVertexArray(UStaticMeshCompo
 
 	if (StaticMesh)
 	{
-		uint32 NumLODLevel = StaticMesh->RenderData->LODResources.Num();
+		uint32 NumLODLevel = StaticMesh->GetRenderData()->LODResources.Num();
 		for (uint32 LODIndex = 0; LODIndex < NumLODLevel; LODIndex++)
 		{
-			FStaticMeshLODResources& LODModel = StaticMesh->RenderData->LODResources[LODIndex];
+			FStaticMeshLODResources& LODModel = StaticMesh->GetRenderData()->LODResources[LODIndex];
 			FStaticMeshComponentLODInfo* InstanceMeshLODInfo = NULL;
 
 			uint32 NumVertices = LODModel.GetNumVertices();
 
-#if ENGINE_MINOR_VERSION < 19
-			FPositionVertexBuffer& PositionVertexBuffer = LODModel.PositionVertexBuffer;
-#else
+//#if ENGINE_MINOR_VERSION < 19
+//			FPositionVertexBuffer& PositionVertexBuffer = LODModel.PositionVertexBuffer;
+//#else
 			FStaticMeshVertexBuffers& StaticMeshVertexBuffers = LODModel.VertexBuffers;
 			FPositionVertexBuffer& PositionVertexBuffer = StaticMeshVertexBuffers.PositionVertexBuffer;
-#endif
+//#endif
 
 			for (uint32 VertexIndex = 0; VertexIndex < PositionVertexBuffer.GetNumVertices(); VertexIndex++)
 			{
