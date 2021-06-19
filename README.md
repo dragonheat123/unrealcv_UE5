@@ -1,4 +1,4 @@
-### Updated to compile in UE5.0EA on MACOS Big Sur
+### Updated to compile in UE5.0EA on MACOS Big Sur (intel x86)
 
 # UnrealCV
 
