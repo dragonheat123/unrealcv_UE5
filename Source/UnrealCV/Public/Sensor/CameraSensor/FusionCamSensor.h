@@ -116,32 +116,32 @@ public:
 #endif
 
 private:
-	UPROPERTY(EditInstanceOnly, meta=(AllowPrivateAccess = "true"))
+	UPROPERTY(EditInstanceOnly, meta=(AllowPrivateAccess = "true"), Category= PresetFilmSize)
 	EPresetFilmSize PresetFilmSize;
 
-	UPROPERTY(EditInstanceOnly, meta=(AllowPrivateAccess = "true"))
+	UPROPERTY(EditInstanceOnly, meta=(AllowPrivateAccess = "true"), Category= FilmWidth)
 	int FilmWidth;
 
-	UPROPERTY(EditInstanceOnly, meta=(AllowPrivateAccess = "true"))
+	UPROPERTY(EditInstanceOnly, meta=(AllowPrivateAccess = "true"), Category= FilmHeight)
 	int FilmHeight;
 
-	UPROPERTY(EditInstanceOnly, meta=(AllowPrivateAccess = "true"))
+	UPROPERTY(EditInstanceOnly, meta=(AllowPrivateAccess = "true"), Category= FOV)
 	float FOV;
 
 protected:
 	UPROPERTY()
 	TArray<class UBaseCameraSensor*> FusionSensors;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, Category= DepthCamSensor)
 	class UDepthCamSensor* DepthCamSensor;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, Category= NormalCamSensor)
 	class UNormalCamSensor* NormalCamSensor;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, Category= AnnotationCamSensor)
 	class UAnnotationCamSensor* AnnotationCamSensor;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, Category= LitCamSensor)
 	class ULitCamSensor* LitCamSensor;
 
 	/** This preview camera is used for UE version < 4.17 which only support UCameraComponent PIP preview

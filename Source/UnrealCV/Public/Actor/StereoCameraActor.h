@@ -17,7 +17,7 @@ public:
 
 	virtual void BeginPlay() override;
 
-	UPROPERTY(EditInstanceOnly)
+	UPROPERTY(EditInstanceOnly, Category= BaselineDistance)
 	float BaselineDistance;
 
 	virtual TArray<FString> GetSensorNames() override;

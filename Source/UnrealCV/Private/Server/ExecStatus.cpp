@@ -126,5 +126,8 @@ void FExecStatus::BinaryArrayFromString(const FString& Message, TArray<uint8>& O
 {
 	FTCHARToUTF8 Convert(*Message);
 	OutBinaryArray.Empty();
-	OutBinaryArray.Append((UTF8CHAR*)Convert.Get(), Convert.Length());
+	
+	const TArray<TCHAR>& CharArray = Message.GetCharArray();
+	OutBinaryArray.Append(CharArray);
+// 	OutBinaryArray.Append((UTF8CHAR*)Convert.Get(), Convert.Length());
 }

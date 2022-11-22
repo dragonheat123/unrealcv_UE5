@@ -2,7 +2,8 @@
 # Weichao Qiu @ 2017
 # Use python build.py to build the plugin
 import argparse
-from unrealcv.automation import UE4Automation
+# from unrealcv.automation import UE4Automation
+from client.python.unrealcv.automation import UE4Automation
 import os
 
 def main():

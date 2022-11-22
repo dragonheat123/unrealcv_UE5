@@ -1,4 +1,8 @@
-### Updated to compile in UE5.0EA on MACOS Big Sur (intel x86) + Win10
+### Updated to compile in UE5.1 on Win10
+
+# Building For Windows
+1. Check visual studio compatibility and install dependencies https://docs.unrealengine.com/5.1/en-US/setting-up-visual-studio-development-environment-for-cplusplus-projects-in-unreal-engine/
+2. RUN `python build.py --UE4 C:\UE_5.1`
 
 # UnrealCV
 

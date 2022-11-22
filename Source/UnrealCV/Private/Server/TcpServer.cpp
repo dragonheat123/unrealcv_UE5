@@ -177,14 +177,13 @@ FString StringFromBinaryArray(const TArray<uint8>& BinaryArray)
 void BinaryArrayFromString(const FString& Message, TArray<uint8>& OutBinaryArray)
 {
 	FTCHARToUTF8 Convert(*Message);
-
 	OutBinaryArray.Empty();
-
-	// const TArray<TCHAR>& CharArray = Message.GetCharArray();
-	// OutBinaryArray.Append(CharArray);
+	
+	const TArray<TCHAR>& CharArray = Message.GetCharArray();
+	OutBinaryArray.Append(CharArray);
 	// This can work, but will add tailing \0 also behavior is not well defined.
 
-	OutBinaryArray.Append((UTF8CHAR*)Convert.Get(), Convert.Length());
+// 	OutBinaryArray.Append((UTF8CHAR*)Convert.Get(), Convert.Length());
 }
 
 

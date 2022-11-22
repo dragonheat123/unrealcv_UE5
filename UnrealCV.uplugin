@@ -19,7 +19,10 @@
         {
             "Name": "UnrealCV",
             "Type" : "Runtime",
-            "LoadingPhase" : "PreDefault"
+            "LoadingPhase" : "Default",
+            "PlatformAllowList": [
+                "Win64"
+            ]
         }
     ]
 }

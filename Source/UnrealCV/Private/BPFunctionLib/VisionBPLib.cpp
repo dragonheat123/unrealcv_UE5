@@ -255,21 +255,24 @@ void UVisionBPLib::AnnotateWorld()
 
 TArray<FVector> UVisionBPLib::SkinnedMeshComponentGetVertexArray(USkinnedMeshComponent* Component)
 {
+	TArray<FVector3f> VertexArray1;
 	TArray<FVector> VertexArray;
-	if (!IsValid(Component)) return VertexArray;
-
+	if (!IsValid(Component)) 
+	{
+    	return VertexArray;
+	}
 	// Ref: https://github.com/EpicGames/UnrealEngine/blob/4.19/Engine/Source/Runtime/Engine/Private/PhysicsEngine/PhysAnim.cpp#L671
 	if (Component->MeshObject == nullptr)
 	{
 		return VertexArray;
 	}
 
-	TArray<FMatrix> RefToLocals;
+	TArray<FMatrix44f> RefToLocals;
 	FSkinWeightVertexBuffer& SkinWeightBuffer = *Component->GetSkinWeightBuffer(0);
 	const FSkeletalMeshLODRenderData& LODData = Component->MeshObject->GetSkeletalMeshRenderData().LODRenderData[0];
 	Component->CacheRefToLocalMatrices(RefToLocals);
-	USkinnedMeshComponent::ComputeSkinnedPositions(Component, VertexArray, RefToLocals, LODData, SkinWeightBuffer);
-
+	USkinnedMeshComponent::ComputeSkinnedPositions(Component, VertexArray1, RefToLocals, LODData, SkinWeightBuffer);
+    VertexArray = TArray<FVector>(VertexArray1);
 	return VertexArray;
 	// SkinnedMeshComponent.cpp::ComputeSkinnedPositions
 	// for (int VertexIndex = 0; VertexIndex < ; VertexIndex++)
@@ -313,7 +316,7 @@ TArray<FVector> UVisionBPLib::StaticMeshComponentGetVertexArray(UStaticMeshCompo
 
 			for (uint32 VertexIndex = 0; VertexIndex < PositionVertexBuffer.GetNumVertices(); VertexIndex++)
 			{
-				FVector Position = PositionVertexBuffer.VertexPosition(VertexIndex);
+				FVector Position = FVector(PositionVertexBuffer.VertexPosition(VertexIndex));
 				VertexArray.Add(Position);
 			}
 
